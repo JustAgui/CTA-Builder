@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="row justify-content-center mt-5 login" *ngIf="!isLoggedIn()">
+  <h2 class="mb-3 text-center">Login</h2>
+
+  <form class="row justify-content-center" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="col-6 mb-3">
+      <input type="email" id="username" class="form-control" formControlName="username" placeholder="Username">
+    </div>
+    <div class="w-100"></div>
+    <div class="col-6 mb-3">
+      <input type="password" class="col-6 form-control" formControlName="password" placeholder="Password">
+    </div>
+    <div class="w-100"></div>
+    <div class="col-6 d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary text-center">Login</button>
+    </div>
+  </form>
+
+  <div class="col-5 d-flex justify-content-center needregister">
+    <a class="col mt-3 text-center">Register new Account</a>
+    <a class="col mt-3 text-center">Forgot password?</a>
+  </div>
+
+</div>
+
+<div class="ui grid centered mt-8" *ngIf="isLoggedIn()">
+
+  <h1>Logout</h1>
+  <div class="row mt-2">
+    <div class="right aligned column">
+      <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="">
+      <button [routerLink]="'/vaccinlocations'"  class="btn btn-primary">Zu den Impfstellen</button>
+    </div>
+  </div>
+</div>
+

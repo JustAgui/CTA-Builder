@@ -1,0 +1,54 @@
+@mixin hero {
+  max-height: 100%;
+  max-width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.hero-cards {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: 570px;
+  height: 780px;
+
+  > img {
+    position: absolute;
+  }
+  img:nth-child(1) {
+    @include hero;
+    z-index: 1;
+  }
+  img:nth-child(2) {
+    @include hero;
+    z-index: 2;
+  }
+  img:nth-child(3) {
+    @include hero;
+    z-index: 3;
+  }
+
+  img:nth-child(4) {
+    @include hero;
+    z-index: 4;
+    transform: translateY(24%);
+    max-height: 75%;
+  }
+
+}
+
+.hero-cards-div {
+  position: relative;
+  width: 100%;
+  max-width: 570px;
+  min-height: 780px;
+}
+
+.hero-info {
+  background-color: rgb(69, 35, 8, 0.5);
+  padding: 40px 0;
+
+
+}
+
+

@@ -17,7 +17,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let hero of heroes" class="onehero cb-hero-list-item" [hero]="hero" [routerLink]="hero.id">
+      <tr *ngFor="let hero of heroes" class="onehero cb-heroes-list-item" [hero]="hero" [routerLink]="['../hero/',hero.id]">
       </tr>
       </tbody>
     </table>

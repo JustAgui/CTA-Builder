@@ -5,19 +5,31 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './home/home.component';
-import { HeroListComponent } from './hero-list/hero-list.component';
-import { HeroListItemComponent } from './hero-list-item/hero-list-item.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {CtabuilderService} from './shared/ctabuilder.service';
+import {TokenInterceptorService} from './shared/token-interceptor.service';
+import {ReactiveFormsModule} from '@angular/forms';
+import { HeroDetailsComponent } from './hero-details/hero-details.component';
+
+import { RunesListComponent } from './runes-list/runes-list.component';
+import { RunesListItemComponent } from './runes-list-item/runes-list-item.component';
+import { HeroesListComponent } from './heroes-list/heroes-list.component';
+import { HeroesListItemComponent } from './heroes-list-item/heroes-list-item.component';
+import { HeroDetailsCommentsComponent } from './hero-details-comments/hero-details-comments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeroListComponent,
-    HeroListItemComponent,
-    LoginComponent
+    LoginComponent,
+    HeroDetailsComponent,
+    RunesListComponent,
+    RunesListItemComponent,
+    HeroesListComponent,
+    HeroesListItemComponent,
+    HeroDetailsCommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +41,14 @@ import {HttpClientModule} from '@angular/common/http';
     }),
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    CtabuilderService,
+    { provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,6 +16,16 @@ export class CtabuilderService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  getOneHero(id: number): Observable<any> {
+    return this.http.get(`${this.api}/acf/v3/heroes/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getCommentsFromPost(id: number): Observable<any> {
+    return this.http.get(`${this.api}/wp/v2/comments?post=${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }

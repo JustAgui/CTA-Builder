@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
   <div class="container-fluid">
     <a routerLink="home" class="navbar-brand">
       <img src="./assets/logo/CTA_Logo.png" width="70" class="d-inline-block">
@@ -9,19 +9,25 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a routerLink="hero" class="nav-link" aria-current="page" [routerLinkActive]="['active']">Hero</a>
+          <a routerLink="heroes" class="nav-link" aria-current="page" [routerLinkActive]="['active']">Heroes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Runes</a>
+          <a routerLink="runes" class="nav-link" href="#">Runes</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Builder</a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a routerLink="login" class="nav-link" aria-current="page" [routerLinkActive]="['active']">Login</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<div class="container">
+<div class="container-fluid">
   <router-outlet></router-outlet>
 </div>
 
