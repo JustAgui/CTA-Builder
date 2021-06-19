@@ -1,12 +1,16 @@
 .needregister {
   margin-top: 1rem;
-  border-top: 1px solid rgb(69, 35, 8, 0.5);
+  border-top: 1px solid rgb(61, 27, 0);
+
   font-size: 14px;
+  a {
+    color: #fff;
+  }
 }
 
 .login {
-  background-color: rgb(69, 35, 8, 0.14);
+  //background-color: rgb(69, 35, 8, 0.14);
   padding: 40px 0;
   border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 3px 2px;
+  //box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 3px 2px;
 }

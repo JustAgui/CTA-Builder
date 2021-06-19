@@ -10,6 +10,7 @@ export class Hero {
     public def: number,
     public movespeed: number,
     public aps: number,
+    public atkrange: number,
     public critrate: number,
     public critdmg: number,
     public effectresistance: number,

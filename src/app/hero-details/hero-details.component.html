@@ -1,20 +1,21 @@
 <div class="row hero-info">
   <div class="container">
     <div class="row justify-content-center text-center">
-      <h1 *ngIf="hero">{{ hero.name | titlecase}}</h1>
+
     </div>
     <div class="row justify-content-center ">
-      <div class="col d-flex justify-content-center hero-cards-div">
+      <div class="col-6 d-flex justify-content-center hero-cards-div">
         <div class="hero-cards">
+
           <img *ngIf="iconpaths" [src]="iconpaths.rarity" alt="">
           <img *ngIf="iconpaths" [src]="iconpaths.element" alt="" class="">
           <img *ngIf="iconpaths" [src]="iconpaths.class" alt="">
           <img *ngIf="iconpaths" [src]="iconpaths.img" alt="">
-
+          <div *ngIf="hero">{{ hero.name | titlecase}}</div>
 
         </div>
       </div>
-      <div class="col-xl-6 d-flex align-items-center justify-content-md-center">
+      <div class="col-xl-6 d-flex align-items-center justify-content-center">
         <div *ngIf="hero" class="hero-stats">
           <div>
             <div>Atk:</div>
@@ -31,6 +32,10 @@
           <div>
             <div>Aps:</div>
             <div>{{ hero.aps }}</div>
+          </div>
+          <div>
+            <div>Atkrange:</div>
+            <div>{{ hero.atkrange }}</div>
           </div>
           <div>
             <div>Critrate:</div>
@@ -50,12 +55,26 @@
 
 <div>
   <div class="row m-5">
-    <h2 class="col-4">Comments</h2>
+    <h2 class="col text-center">Comments</h2>
 
   </div>
   <div class="row m-5">
-    <div class="col cb-hero-details-comments" *ngFor="let comment of comments" [comment]="comment">
+    <div class="col-12 cb-hero-details-comments" *ngFor="let comment of comments" [comment]="comment">
 
     </div>
+  </div>
+  <div class="row justify-content-center mb-5">
+    <div class="col-12 col-lg-6">
+
+      <form>
+        <div class="mb-3">
+          <label for="textfieldcomment" class="form-label">Write a comment:</label>
+          <textarea class="form-control" id="textfieldcomment" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add comment</button>
+      </form>
+    </div>
+
+
   </div>
 </div>

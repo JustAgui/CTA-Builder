@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError, filter, map, mergeMap, retry} from 'rxjs/operators';
 import {Hero} from './hero';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class CtabuilderService {
   private api = 'https://api.s1810456015.student.kwmhgb.at/wp-json';
   constructor(private http: HttpClient) { }
 
-  getAllHeroes(): Observable<Array<any>> {
-    return this.http.get(`${this.api}/acf/v3/heroes`)
+  getAllHeroes(posts): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.api}/wp/v2/heroes?per_page=${posts}`, { observe: 'response'})
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
@@ -23,6 +23,17 @@ export class CtabuilderService {
 
   getCommentsFromPost(id: number): Observable<any> {
     return this.http.get(`${this.api}/wp/v2/comments?post=${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getAllCategories(element: string): Observable<any> {
+    return this.http.get<any>(`${this.api}/wp/v2/categories?per_page=50`)
+      .pipe(map(items => items.filter(item => item.slug === element + 'heroes')))
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getPostsByCategory(id: number): Observable<any> {
+    return this.http.get<any>(`${this.api}/wp/v2/heroes?categories=${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 

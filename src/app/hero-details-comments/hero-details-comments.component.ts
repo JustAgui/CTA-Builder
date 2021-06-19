@@ -11,6 +11,7 @@ export class HeroDetailsCommentsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.comment);
   }
 
 }

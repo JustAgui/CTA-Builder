@@ -12,7 +12,7 @@
   width: 570px;
   height: 780px;
 
-  > img {
+  > * {
     position: absolute;
   }
   img:nth-child(1) {
@@ -33,8 +33,24 @@
     z-index: 4;
     transform: translateY(24%);
     max-height: 75%;
+    animation: hero 4s ease-in-out running infinite;
+  }
+  div {
+    z-index: 5;
+
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    font-weight: bold;
   }
 
+}
+
+@keyframes hero {
+  0% {transform: translateY(23%)}
+  50% {transform: translateY(26%)}
+  100% {transform: translateY(23%)}
 }
 
 .hero-cards-div {
@@ -45,7 +61,7 @@
 }
 
 .hero-info {
-  background-color: rgb(69, 35, 8, 0.5);
+  //background-color: rgb(69, 35, 8, 0.5);
   padding: 40px 0;
 
 

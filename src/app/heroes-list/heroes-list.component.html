@@ -1,26 +1,47 @@
-<div class="container-fluid">
-  <div class="row mt-5 text-center">
+<div class="container">
+  <div class="row mt-5 mb-3 text-center">
     <h1>All Heroes</h1>
 
   </div>
-  <div class="row">
-    <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Icon</th>
-        <th scope="col">Element</th>
-        <th scope="col">Class</th>
-        <th scope="col">Atk</th>
-        <th scope="col">Hp</th>
-        <th scope="col">Def</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let hero of heroes" class="onehero cb-heroes-list-item" [hero]="hero" [routerLink]="['../hero/',hero.id]">
-      </tr>
-      </tbody>
-    </table>
+  <div class="row mb-2 justify-content-end">
+    <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+      <select #element (change)="filterByElement(element.value)" class="form-select" aria-label="Default select example">
+        <option  selected>Filter by element</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="earth">Earth</option>
+        <option value="fire">Fire</option>
+        <option value="water">Water</option>
+      </select>
+    </div>
+
+  </div>
+  <div class="row justify-content-center">
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Icon</th>
+          <th scope="col">Element</th>
+          <th scope="col">Class</th>
+          <th scope="col">Atk</th>
+          <th scope="col">Hp</th>
+          <th scope="col">Def</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let hero of heroes" class="onehero cb-heroes-list-item" [hero]="hero" [routerLink]="['../hero/',hero.id]">
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="totalPages" class="col d-flex justify-content-center mt-2">
+      <button *ngIf="totalPages > 1" class="btn btn-primary">Load more</button>
+    </div>
+    <div>
+
+    </div>
   </div>
 </div>
 
