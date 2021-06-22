@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CtabuilderService } from '../shared/ctabuilder.service';
-import {filter, mergeMap, switchMap} from 'rxjs/operators';
-import {HttpResponse} from '@angular/common/http';
-import {formatNumber} from '@angular/common';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'cb-heroes-list',
@@ -11,16 +9,18 @@ import {formatNumber} from '@angular/common';
 })
 export class HeroesListComponent implements OnInit {
   public heroes: Array<any>;
-  public totalPages: number;
   private posts = 10;
   public needPaginate = false;
 
   constructor(private cs: CtabuilderService) { }
 
   ngOnInit(): void {
+    this.loadPosts();
+  }
+
+  loadPosts(): void {
     this.cs.getAllHeroes(this.posts).subscribe(res => {
       console.log(res.headers);
-      console.log(this.totalPages);
       this.heroes = res.body;
 
       this.paginate(+res.headers.get('X-WP-TotalPages'));
@@ -44,8 +44,14 @@ export class HeroesListComponent implements OnInit {
       this.needPaginate = true;
       this.posts += 10;
 
-    } else {}
+    } else {
+      this.needPaginate = false;
+    }
 
+  }
+
+  loadmore(): void {
+    this.loadPosts();
   }
 
 }

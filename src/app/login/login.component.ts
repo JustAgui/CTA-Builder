@@ -14,6 +14,7 @@ interface Response {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private registermodal: object;
   loginForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
+  login(): void {
     const val = this.loginForm.value;
     if (val.username && val.password) {
       this.authService.login(val.username, val.password).subscribe(res => {

@@ -1,1 +1,147 @@
-<p>runes-list works!</p>
+<div *ngIf="loggedIn" class="container">
+  <div class="row mt-5 mb-4 text-center">
+    <h1>Runes</h1>
+  </div>
+
+  <form class="d-flex flex-wrap mb-3 justify-content-center" [formGroup]="runeForm" >
+    <div class="mb-3">
+      <div class="d-flex flex-column">
+        <div class="runeinputlabel">
+          <div>Runeset</div>
+        </div>
+        <select formControlName="runeset" class="form-select runeinput" aria-label="Select Runeset">
+          <option value="damage">Damage</option>
+          <option value="swift">Swift</option>
+          <option value="precise">Precise</option>
+          <option value="rage">Rage</option>
+          <option value="nimble">Nimble</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <div class="d-flex flex-column">
+        <div class="runeinputlabel runenumberlabel">
+          <label for="star">Star:</label>
+        </div>
+        <input type="tel" id="star" name="star" class="runeinput runenumber" formControlName="star">
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <div class="d-flex flex-column">
+        <div class="runeinputlabel runenumberlabel">
+          <label for="level">Lvl:</label>
+        </div>
+        <input type="tel" id="level" name="level" class="runeinput runenumber" formControlName="level">
+      </div>
+
+    </div>
+    <div class="mb-3">
+      <select class="form-select runeinput" aria-label="Select Primary" formControlName="primary">
+        <option value="atk">Atk</option>
+        <option value="atkspeed">Atk speed</option>
+        <option value="hp">Hp</option>
+        <option value="critdmg">Critdmg</option>
+        <option value="def">Def</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-select runeinput" aria-label="Select Secondary 1" formControlName="secondary1">
+        <option value="atk">Atk</option>
+        <option value="atkspeed">Atk speed</option>
+        <option value="hp">Hp</option>
+        <option value="critdmg">Critdmg</option>
+        <option value="def">Def</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-select runeinput" aria-label="Select Secondary 2" formControlName="secondary2">
+        <option value="atk">Atk</option>
+        <option value="atkspeed">Atk speed</option>
+        <option value="hp">Hp</option>
+        <option value="critdmg">Critdmg</option>
+        <option value="def">Def</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <select class="form-select runeinput" aria-label="Select Secondary 3" formControlName="secondary3">
+        <option value="atk">Atk</option>
+        <option value="atkspeed">Atk speed</option>
+        <option value="hp">Hp</option>
+        <option value="critdmg">Critdmg</option>
+        <option value="def">Def</option>
+      </select>
+    </div>
+    <div class="">
+      <button type="submit" class="btn btn-primary text-center runeinput" (click)="addRune()">Add</button>
+    </div>
+  </form>
+  <div *ngIf="runes">
+    <div *ngIf="runes.length == 0" class="row mt-5 justify-content-center">
+      <div  class="col text-center">
+        <h4>Please add some runes</h4>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="runes">
+    <div *ngIf="runes.length > 0">
+      <div class="row mb-2 justify-content-end">
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+          <select #element class="form-select" aria-label="Select element">
+            <option selected>Filter by element</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="earth">Earth</option>
+            <option value="fire">Fire</option>
+            <option value="water">Water</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Primary</th>
+              <th scope="col">Star</th>
+              <th scope="col">Level</th>
+              <th scope="col">Secondary 1</th>
+              <th scope="col">Secondary 2</th>
+              <th scope="col">Secondary 3</th>
+              <th scope="col">Secondary 4</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let rune of runes" class="onehero cb-runes-list-item" [rune]="rune">
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="needPaginate" class="col d-flex justify-content-center mt-2">
+          <button class="btn btn-primary">Load more</button>
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn" class="container">
+  <div class="row mt-5 mb-3 text-center justify-content-center">
+    <h4>Please login to add runes</h4>
+    <div class="col-3 col-sm-3 mt-2">
+      <button class="btn btn-primary" routerLink="../login">Login</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+

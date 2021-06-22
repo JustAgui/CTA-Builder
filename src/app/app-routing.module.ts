@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {HeroesListComponent} from './heroes-list/heroes-list.component';
 import {RunesListComponent} from './runes-list/runes-list.component';
 import {HeroDetailsComponent} from './hero-details/hero-details.component';
+import {UserRegistrationComponent} from './user-registration/user-registration.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'hero/:id', component: HeroDetailsComponent },
   { path: 'runes', component: RunesListComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: UserRegistrationComponent },
 
 ];
 

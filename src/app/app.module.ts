@@ -18,6 +18,9 @@ import { RunesListItemComponent } from './runes-list-item/runes-list-item.compon
 import { HeroesListComponent } from './heroes-list/heroes-list.component';
 import { HeroesListItemComponent } from './heroes-list-item/heroes-list-item.component';
 import { HeroDetailsCommentsComponent } from './hero-details-comments/hero-details-comments.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MessageService} from './shared/message.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { HeroDetailsCommentsComponent } from './hero-details-comments/hero-detai
     RunesListItemComponent,
     HeroesListComponent,
     HeroesListItemComponent,
-    HeroDetailsCommentsComponent
+    HeroDetailsCommentsComponent,
+    UserRegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +46,10 @@ import { HeroDetailsCommentsComponent } from './hero-details-comments/hero-detai
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
-    CtabuilderService,
+    CtabuilderService, MessageService,
     { provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true },

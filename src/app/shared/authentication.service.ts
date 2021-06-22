@@ -4,8 +4,10 @@ import jwt_decode from 'jwt-decode';
 
 interface Token {
   exp: number;
-  user: {
-    id: string,
+  data: {
+    user: {
+      id: string,
+    }
   };
 }
 
@@ -15,13 +17,14 @@ interface Token {
 export class AuthenticationService {
 
   private api = 'https://api.s1810456015.student.kwmhgb.at/wp-json/jwt-auth/v1';
+  currentUserId: number;
 
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): any {
     return this.http.post(`${this.api}/token`,  {
-      username : username,
-      password : password
+      username,
+      password
     });
   }
 
@@ -47,6 +50,15 @@ export class AuthenticationService {
       return true;
     } else {
       return false;
+    }
+  }
+
+  getUserId(): number {
+    if (this.isLoggedIn()) {
+      let token = sessionStorage.getItem('token');
+      const decodedToken = jwt_decode(token) as Token;
+      this.currentUserId = JSON.parse(decodedToken.data.user.id);
+      return this.currentUserId;
     }
   }
 }

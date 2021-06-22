@@ -37,6 +37,26 @@ export class CtabuilderService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  registerUser(data: any): Observable<any> {
+    return this.http.post<any>(`${this.api}/wp/v2/users/register`, data)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  createRune(data: any): Observable<any> {
+    return this.http.post<any>(`${this.api}/wp/v2/runes`, data)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getRunesByUser(userid, posts): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.api}/wp/v2/runes?per_page=${posts}&author=${userid}`, { observe: 'response'})
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.api}/wp/v2/users?include=${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }
