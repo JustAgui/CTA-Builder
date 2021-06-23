@@ -18,36 +18,38 @@
       <div class="col-xl-6 d-flex align-items-center justify-content-center">
         <div *ngIf="hero" class="hero-stats">
           <div>
-            <div>Atk:</div>
+            <div><img src="{{ 'atk' | getStatIconPath }}" alt="" title="Attack"></div>
             <div>{{ hero.atk }}</div>
           </div>
           <div>
-            <div>Hp:</div>
+            <div><img src="{{ 'hp' | getStatIconPath }}" alt="" title="Hp"></div>
             <div>{{ hero.hp }}</div>
           </div>
           <div>
-            <div>Def:</div>
+            <div><img src="{{ 'def' | getStatIconPath }}" alt="" title="Defense"></div>
             <div>{{ hero.def }}</div>
           </div>
           <div>
-            <div>Aps:</div>
+            <div><img src="{{ 'aps' | getStatIconPath }}" alt="" title="Attack speed"></div>
             <div>{{ hero.aps }}</div>
           </div>
           <div>
-            <div>Atkrange:</div>
+            <div><img src="{{ 'atkrange' | getStatIconPath }}" alt="" title="Attack range"></div>
             <div>{{ hero.atkrange }}</div>
           </div>
           <div>
-            <div>Critrate:</div>
+            <div><img src="{{ 'mvspeed' | getStatIconPath }}" alt="" title="Movespeed"></div>
+            <div>{{ hero.atkrange }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'ctkrate' | getStatIconPath }}" alt="" title="Critrate"></div>
             <div>{{ hero.critrate }}</div>
           </div>
           <div>
-            <div>Critdmg:</div>
+            <div><img src="{{ 'ctkdmg' | getStatIconPath }}" alt="" title="Critdamage"></div>
             <div>{{ hero.critdmg }}</div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

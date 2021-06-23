@@ -9,41 +9,56 @@ import { switchMap } from 'rxjs/operators';
 })
 export class HeroesListComponent implements OnInit {
   public heroes: Array<any>;
-  private posts = 10;
+  private page = 1;
+  private totalPages = 0;
   public needPaginate = false;
 
   constructor(private cs: CtabuilderService) { }
 
   ngOnInit(): void {
+    this.heroes = [];
     this.loadPosts();
   }
 
   loadPosts(): void {
-    this.cs.getAllHeroes(this.posts).subscribe(res => {
-      console.log(res.headers);
-      this.heroes = res.body;
-
-      this.paginate(+res.headers.get('X-WP-TotalPages'));
+    this.cs.getAllHeroes(this.page).subscribe(res => {
+      for (let hero of res.body) {
+        this.heroes.push(hero);
+      }
+      this.totalPages = +res.headers.get('X-WP-TotalPages');
+      this.paginate(this.totalPages);
     });
   }
 
   filterByElement(element: string): void {
     this.cs.getAllCategories(element).pipe(
       switchMap(result =>
-        result[0] ? this.cs.getPostsByCategory(result[0].id) : this.cs.getAllHeroes(this.posts)
+        result[0] ? this.cs.getPostsByCategory(result[0].id) : this.cs.getAllHeroes(1)
       )
     ).subscribe(res => {
-      this.heroes = res;
+      if (res.body) {
+        this.page = 1;
+        this.totalPages = +res.headers.get('X-WP-TotalPages');
+        console.log(this.totalPages);
+        this.heroes = res.body;
+        this.paginate(this.totalPages);
 
-      console.log(res);
+      } else {
+        this.heroes = res;
+        this.needPaginate = false;
+      }
     });
   }
 
   paginate(totalPages): void {
-    if (totalPages > 1) {
-      this.needPaginate = true;
-      this.posts += 10;
 
+    if (this.page < this.totalPages) {
+      if (totalPages > 1) {
+        this.needPaginate = true;
+        this.page++;
+      } else {
+        this.needPaginate = false;
+      }
     } else {
       this.needPaginate = false;
     }

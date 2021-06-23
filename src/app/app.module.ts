@@ -21,6 +21,11 @@ import { HeroDetailsCommentsComponent } from './hero-details-comments/hero-detai
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MessageService} from './shared/message.service';
+import { HeroBuilderComponent } from './hero-builder/hero-builder.component';
+import { HeroBuilderRunesListItemComponent } from './hero-builder-runes-list-item/hero-builder-runes-list-item.component';
+import { HeroBuilderAddedRunesComponent } from './hero-builder-added-runes/hero-builder-added-runes.component';
+import { GetRuneIconPathPipe } from './shared/get-rune-icon-path.pipe';
+import { GetStatIconPathPipe } from './shared/get-stat-icon-path.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,11 @@ import {MessageService} from './shared/message.service';
     HeroesListItemComponent,
     HeroDetailsCommentsComponent,
     UserRegistrationComponent,
+    HeroBuilderComponent,
+    HeroBuilderRunesListItemComponent,
+    HeroBuilderAddedRunesComponent,
+    GetRuneIconPathPipe,
+    GetStatIconPathPipe,
   ],
   imports: [
     BrowserModule,

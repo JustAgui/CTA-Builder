@@ -1,5 +1,5 @@
 <th scope="row">
-  {{ rune.acf.name }}
+  <img src="{{ rune.acf.name | getRuneIconPath }}" alt="">
 </th>
 <td>
   {{ rune.acf.primary | titlecase }}

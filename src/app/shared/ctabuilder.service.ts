@@ -11,8 +11,8 @@ export class CtabuilderService {
   private api = 'https://api.s1810456015.student.kwmhgb.at/wp-json';
   constructor(private http: HttpClient) { }
 
-  getAllHeroes(posts): Observable<HttpResponse<any>> {
-    return this.http.get<any>(`${this.api}/wp/v2/heroes?per_page=${posts}`, { observe: 'response'})
+  getAllHeroes(page): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.api}/wp/v2/heroes?page=${page}`, { observe: 'response'})
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 

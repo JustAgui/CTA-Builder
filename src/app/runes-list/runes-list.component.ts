@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CtabuilderService} from '../shared/ctabuilder.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../shared/authentication.service';
 
 @Component({
@@ -26,14 +26,24 @@ export class RunesListComponent implements OnInit {
       this.runeForm = this.fb.group({
         runeset: ['damage'],
         primary: ['atk'],
-        star: ['0'],
-        level: ['0'],
+        star: ['1'],
+        level: ['1'],
         secondary1: ['atk'],
         secondary2: ['atk'],
         secondary3: ['atk'],
+        secondary4: ['atk'],
       });
 
       this.getAllRunes();
+    }
+  }
+
+  paginate(totalPages): void {
+    if (totalPages > 1) {
+      this.needPaginate = true;
+      this.posts += 10;
+    } else {
+      this.needPaginate = false;
     }
   }
 
@@ -55,16 +65,17 @@ export class RunesListComponent implements OnInit {
           name: `${val.runeset}`,
           star: `${val.star}`,
           level: `${val.level}`,
-          primary: `${val.primary}`
+          primary: `${val.primary}`,
+          secondary1: val.secondary1 ? `${val.secondary1}` : null ,
+          secondary2: val.secondary2 ? `${val.secondary2}` : null ,
+          secondary3: val.secondary3 ? `${val.secondary3}` : null ,
+          secondary4: val.secondary4 ? `${val.secondary4}` : null ,
         },
       };
+      this.cs.createRune(this.rune).subscribe(res => {
+        this.getAllRunes();
+      });
     }
-    this.cs.createRune(this.rune).subscribe(res => { });
-
-    if (this.userId) {
-      this.getAllRunes();
-    }
-
   }
 
 }

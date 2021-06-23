@@ -1,0 +1,158 @@
+<div *ngIf="loggedIn" class="row hero-info">
+  <div class="container">
+    <div class="row justify-content-end">
+      <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+        <select *ngIf="heroes" class="form-select" aria-label="Select hero" (change)="changehero($event)">
+          <option *ngFor="let hero of heroes" [value]="hero.id">{{ hero.acf.name }}</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-10 col-md-5 d-flex justify-content-center hero-cards-div">
+        <div *ngIf="hero" class="hero-cards">
+          <img *ngIf="iconpaths" [src]="iconpaths.rarity" alt="">
+          <img *ngIf="iconpaths" [src]="iconpaths.element" alt="" class="">
+          <img *ngIf="iconpaths" [src]="iconpaths.class" alt="">
+          <img *ngIf="iconpaths" [src]="iconpaths.img" alt="">
+          <div *ngIf="hero">{{ hero.name | titlecase}}</div>
+        </div>
+      </div>
+      <div class="col-10 col-md-3 col-lg-2 d-flex align-items-center justify-content-center">
+        <div *ngIf="hero" class="hero-stats">
+          <div>
+            <div><img src="{{ 'atk' | getStatIconPath }}" alt="" title="Attack"></div>
+            <div>{{ hero.atk }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'hp' | getStatIconPath }}" alt="" title="Hp"></div>
+            <div>{{ hero.hp }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'def' | getStatIconPath }}" alt="" title="Defense"></div>
+            <div>{{ hero.def }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'aps' | getStatIconPath }}" alt="" title="Attack speed"></div>
+            <div>{{ hero.aps }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'atkrange' | getStatIconPath }}" alt="" title="Attack range"></div>
+            <div>{{ hero.atkrange }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'mvspeed' | getStatIconPath }}" alt="" title="Movespeed"></div>
+            <div>{{ hero.atkrange }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'ctkrate' | getStatIconPath }}" alt="" title="Critrate"></div>
+            <div>{{ hero.critrate }}</div>
+          </div>
+          <div>
+            <div><img src="{{ 'ctkdmg' | getStatIconPath }}" alt="" title="Critdamage"></div>
+            <div>{{ hero.critdmg }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div *ngIf="selectedRunes" class="row mt-5 justify-content-center">
+          <div class="col-12">
+            <table class="table table-striped table-hover">
+              <thead>
+              <tr>
+                <th scope="col">Runeset</th>
+                <th scope="col">Primary</th>
+                <th scope="col">Star</th>
+                <th scope="col">Lvl</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let rune of selectedRunes"
+                  class="onehero cb-hero-builder-added-runes" [rune]="rune">
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row mt-5 text-center justify-content-center">
+          <div *ngIf="selectedRunes" class="col">
+            <button *ngIf="selectedRunes.length === 0" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#addrunes" (click)="addRunesToHero()">
+              Add runes to hero
+            </button>
+          </div>
+          <div *ngIf="selectedRunes">
+            <button *ngIf="selectedRunes.length > 0" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#addrunes" (click)="addRunesToHero()">
+              Edit runes
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addrunes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add runes by selecting them</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div *ngIf="runes">
+            <div *ngIf="runes.length > 0">
+
+              <div class="row justify-content-center">
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Runeset</th>
+                      <th scope="col">Primary</th>
+                      <th scope="col">Star</th>
+                      <th scope="col">Lvl</th>
+                      <th scope="col">Secondary 1</th>
+                      <th scope="col">Secondary 2</th>
+                      <th scope="col">Secondary 3</th>
+                      <th scope="col">Secondary 4</th>
+                    </tr>
+                    </thead>
+                    <tbody #allrunes>
+                    <tr *ngFor="let rune of runes"
+                        class="onehero cb-hero-builder-runes-list-item" [rune]="rune" (click)="selectRune($event)">
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div *ngIf="needPaginate" class="col d-flex justify-content-center mt-2">
+                  <button class="btn btn-primary">Load more</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveRunes()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loggedIn" class="container">
+  <div class="row mt-5 mb-3 text-center justify-content-center">
+    <h4>Please login to build your hero</h4>
+    <div class="col-3 col-sm-3 mt-2">
+      <button class="btn btn-primary" routerLink="../login">Login</button>
+    </div>
+
+  </div>
+</div>

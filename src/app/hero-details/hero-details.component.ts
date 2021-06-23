@@ -13,7 +13,7 @@ export class HeroDetailsComponent implements OnInit {
 
   public hero: Hero;
   public comments: Array<any>;
-  public iconpaths: any;
+  public iconpaths: object;
   constructor(private cs: CtabuilderService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {

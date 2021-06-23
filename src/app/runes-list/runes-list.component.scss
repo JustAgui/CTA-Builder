@@ -1,12 +1,13 @@
 .runeinput {
-  width: 100px;
+  width: 120px;
   height: 40px;
-  margin: 0 .8rem;
+  margin: 0 .5rem;
   //background: rgb(69, 35, 8);
   border: none;
 
+
   text-align: center;
-  color: #fff;
+  //color: #fff;
   //font-size: 18px;
 }
 
@@ -20,7 +21,12 @@
 }
 
 .runeinputlabel {
-  margin: 0 .6rem 0 1rem;
+  margin: 0 .25rem 0 .5rem;
   width: 100px;
   font-weight: bold;
+}
+
+.btn-add {
+  background-color: rgb(61, 27, 0);
+  border: 3px solid rgb(49, 16, 0);
 }

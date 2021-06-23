@@ -3,6 +3,89 @@ body {
   color: #fff !important;
 }
 
+@mixin hero {
+  max-height: 100%;
+  max-width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.hero-cards {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: calc(100vw * 0.44);
+  height: calc(100vw * 0.6);
+
+  @include media-breakpoint-down(sm) {
+    height: calc(100vw * 1.02);
+    width: calc(100vw * .75);
+  }
+
+  > * {
+    position: absolute;
+  }
+  img:nth-child(1) {
+    @include hero;
+    z-index: 1;
+  }
+  img:nth-child(2) {
+    @include hero;
+    z-index: 2;
+  }
+  img:nth-child(3) {
+    @include hero;
+    z-index: 3;
+  }
+
+  img:nth-child(4) {
+    @include hero;
+    z-index: 4;
+    transform: translateY(24%);
+    max-height: 75%;
+    animation: hero 4s ease-in-out running infinite;
+  }
+  div {
+    z-index: 5;
+
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: calc(14px + (30 - 14) * ((100vw - 300px) / (1800 - 300)));
+    font-weight: bold;
+    @include media-breakpoint-down(sm) {
+      font-size: calc(14px + (24 - 14) * ((100vw - 300px) / (525 - 300)));
+    }
+  }
+
+}
+
+@keyframes hero {
+  0% {transform: translateY(23%)}
+  50% {transform: translateY(26%)}
+  100% {transform: translateY(23%)}
+}
+
+.hero-cards-div {
+  position: relative;
+  width: calc(100vw * 0.44);
+  height: calc(100vw * 0.6);
+  max-width: 570px;
+  max-height: 780px;
+
+  @include media-breakpoint-down(sm) {
+    height: calc(100vw * 1.04);
+    width: calc(100vw * .8);
+  }
+}
+
+.hero-info {
+  //background-color: rgb(69, 35, 8, 0.5);
+  padding: 40px 0;
+}
+
+
+
 .form-control {
   box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 3px 0;
 }
@@ -18,11 +101,16 @@ body {
   border-radius: 5px;
   color: #fff;
   padding: 10px 10px;
-  width: 400px;
+
+  * img {
+    width: 35px;
+    height: 35px;
+  }
 
   > div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: rgb(61, 27, 0);
     border: 3px solid rgb(49, 16, 0);
     border-radius: 5px;
@@ -31,3 +119,17 @@ body {
     padding: 10px 20px;
   }
 }
+
+select {
+  cursor: pointer;
+}
+
+.onehero {
+
+  * img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+
