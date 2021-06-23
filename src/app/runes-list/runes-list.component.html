@@ -1,6 +1,6 @@
-<div *ngIf="loggedIn" class="container">
+<div *ngIf="loggedIn" class="container mb-5">
   <div class="row mt-5 mb-4 text-center">
-    <h1>Runes</h1>
+    <h1 class="h1">Runes</h1>
   </div>
 
   <form class="d-flex flex-wrap mb-3 justify-content-center" [formGroup]="runeForm" >
@@ -119,6 +119,18 @@
 
     </div>
   </form>
+  <div class="row mb-2 justify-content-end">
+    <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+      <select #element class="form-select" aria-label="Select Runeset" (change)="filterByRuneset(element.value)">
+        <option selected>Filter by Runeset</option>
+        <option value="damage">Damage</option>
+        <option value="swift">Swift</option>
+        <option value="precise">Precise</option>
+        <option value="rage">Rage</option>
+        <option value="nimble">Nimble</option>
+      </select>
+    </div>
+  </div>
   <div *ngIf="runes">
     <div *ngIf="runes.length == 0" class="row mt-5 justify-content-center">
       <div  class="col text-center">
@@ -129,46 +141,31 @@
 
   <div *ngIf="runes">
     <div *ngIf="runes.length > 0">
-      <div class="row mb-2 justify-content-end">
-        <div class="col-6 col-md-4 col-lg-3 col-xl-2">
-          <select #element class="form-select" aria-label="Select element">
-            <option selected>Filter by element</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-            <option value="earth">Earth</option>
-            <option value="fire">Fire</option>
-            <option value="water">Water</option>
-          </select>
-        </div>
-      </div>
-
       <div class="row justify-content-center">
-        <div class="table-responsive">
-          <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-              <th scope="col">Runeset</th>
-              <th scope="col">Primary</th>
-              <th scope="col">Star</th>
-              <th scope="col">Lvl</th>
-              <th scope="col">Secondary 1</th>
-              <th scope="col">Secondary 2</th>
-              <th scope="col">Secondary 3</th>
-              <th scope="col">Secondary 4</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let rune of runes" class="onehero cb-runes-list-item" [rune]="rune">
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <div *ngIf="needPaginate" class="col d-flex justify-content-center mt-2">
-          <button class="btn btn-primary">Load more</button>
-        </div>
-        <div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+              <tr>
+                <th scope="col">Runeset</th>
+                <th scope="col">Primary</th>
+                <th scope="col">Star</th>
+                <th scope="col">Lvl</th>
+                <th scope="col">Secondary 1</th>
+                <th scope="col">Secondary 2</th>
+                <th scope="col">Secondary 3</th>
+                <th scope="col">Secondary 4</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let rune of runes" class="onehero cb-runes-list-item" [rune]="rune">
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="needPaginate" class="col d-flex justify-content-center mt-2">
+            <button class="btn btn-primary" (click)="loadmore()">Load more</button>
+          </div>
 
-        </div>
       </div>
     </div>
   </div>

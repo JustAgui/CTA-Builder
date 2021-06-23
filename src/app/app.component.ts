@@ -21,7 +21,7 @@ interface Token {
 export class AppComponent implements OnInit {
   title = 'CTA-Builder';
   currentUserId: number;
-  user: object;
+  user: any;
   constructor(
     private authService: AuthenticationService,
     private cs: CtabuilderService,
@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('%c My Little CTA-Builder 🦄', 'color: pink; font-size: 18px');
     if (!this.user) {
       this.inituser();
     }
@@ -43,11 +44,12 @@ export class AppComponent implements OnInit {
       this.currentUserId = JSON.parse(decodedToken.data.user.id);
       this.cs.getUserById(this.currentUserId).subscribe(res => {
         this.user = res;
-        console.log(this.user);
-        console.log(this.currentUserId);
       });
     }
+  }
 
+  getLoginLabel() {
+    return this.authService.isLoggedIn() ? "Logout" : "Login";
   }
 
 }

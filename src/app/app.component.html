@@ -12,16 +12,16 @@
           <a routerLink="heroes" class="nav-link" aria-current="page" [routerLinkActive]="['active']">Heroes</a>
         </li>
         <li class="nav-item">
-          <a routerLink="runes" class="nav-link" href="#">Runes</a>
+          <a routerLink="runes" class="nav-link" [routerLinkActive]="['active']">Runes</a>
         </li>
         <li class="nav-item">
-          <a routerLink="builder" class="nav-link" href="#">Builder</a>
+          <a routerLink="builder" class="nav-link" [routerLinkActive]="['active']">Builder</a>
         </li>
 
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a routerLink="login" class="nav-link" aria-current="page" [routerLinkActive]="['active']">Login</a>
+          <a routerLink="login" class="nav-link" aria-current="page" [routerLinkActive]="['active']">{{ getLoginLabel() }}</a>
         </li>
       </ul>
     </div>

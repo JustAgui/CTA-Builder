@@ -26,5 +26,45 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name" : "runes",
+      "urls": [
+        "https://api.s1810456015.student.kwmhgb.at/wp-json/wp/v2/runes/*",
+        "https://api.s1810456015.student.kwmhgb.at/wp-json/wp/v2/categories/*",
+        "https://api.s1810456015.student.kwmhgb.at/wp-json/wp/v2/comments/*"
+      ],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "2m",
+        "timeout": "10s",
+        "strategy": "freshness"
+      }
+    },
+    {
+      "name" : "heroes",
+      "urls": [
+        "https://api.s1810456015.student.kwmhgb.at/wp-json/acf/v3/heroes/*"
+      ],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "timeout": "10s",
+        "strategy": "performance"
+      }
+    },
+    {
+      "name" : "heroesimages",
+      "urls": [
+        "https://app.s1810456015.student.kwmhgb.at/assets/*"
+      ],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "1d",
+        "timeout": "10s",
+        "strategy": "performance"
+      }
+    }
   ]
 }

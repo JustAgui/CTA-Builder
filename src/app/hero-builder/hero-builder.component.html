@@ -3,7 +3,7 @@
     <div class="row justify-content-end">
       <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
         <select *ngIf="heroes" class="form-select" aria-label="Select hero" (change)="changehero($event)">
-          <option *ngFor="let hero of heroes" [value]="hero.id">{{ hero.acf.name }}</option>
+          <option *ngFor="let hero of heroes" [value]="hero.id">{{ hero.acf.name | titlecase }}</option>
         </select>
       </div>
 
@@ -22,35 +22,39 @@
         <div *ngIf="hero" class="hero-stats">
           <div>
             <div><img src="{{ 'atk' | getStatIconPath }}" alt="" title="Attack"></div>
-            <div>{{ hero.atk }}</div>
+            <div><strong>{{ hero.atk }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'hp' | getStatIconPath }}" alt="" title="Hp"></div>
-            <div>{{ hero.hp }}</div>
+            <div><strong>{{ hero.hp }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'def' | getStatIconPath }}" alt="" title="Defense"></div>
-            <div>{{ hero.def }}</div>
+            <div><strong>{{ hero.def }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'aps' | getStatIconPath }}" alt="" title="Attack speed"></div>
-            <div>{{ hero.aps }}</div>
+            <div><strong>{{ hero.aps }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'atkrange' | getStatIconPath }}" alt="" title="Attack range"></div>
-            <div>{{ hero.atkrange }}</div>
+            <div><strong>{{ hero.atkrange }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'mvspeed' | getStatIconPath }}" alt="" title="Movespeed"></div>
-            <div>{{ hero.atkrange }}</div>
+            <div><strong>{{ hero.movespeed }}</strong></div>
+          </div>
+          <div>
+            <div><img src="{{ 'resist' | getStatIconPath }}" alt="" title="Movespeed"></div>
+            <div><strong>{{ hero.effectresistance }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'ctkrate' | getStatIconPath }}" alt="" title="Critrate"></div>
-            <div>{{ hero.critrate }}</div>
+            <div><strong>{{ hero.critrate }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'ctkdmg' | getStatIconPath }}" alt="" title="Critdamage"></div>
-            <div>{{ hero.critdmg }}</div>
+            <div><strong>{{ hero.critdmg }}</strong></div>
           </div>
         </div>
       </div>
@@ -89,11 +93,9 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" id="addrunes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -131,15 +133,25 @@
                   </table>
                 </div>
                 <div *ngIf="needPaginate" class="col d-flex justify-content-center mt-2">
-                  <button class="btn btn-primary">Load more</button>
+                  <button class="btn btn-primary" (click)="loadmore()">Load more</button>
                 </div>
               </div>
+            </div>
+          </div>
+          <div *ngIf="runes">
+            <div *ngIf="runes.length == 0">
+              <div class="row">
+                <div class="col my-3 text-center">
+                  <h4>No runes available</h4>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer py-2">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveRunes()">Save</button>
       </div>

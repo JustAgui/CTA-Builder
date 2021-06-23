@@ -19,35 +19,39 @@
         <div *ngIf="hero" class="hero-stats">
           <div>
             <div><img src="{{ 'atk' | getStatIconPath }}" alt="" title="Attack"></div>
-            <div>{{ hero.atk }}</div>
+            <div><strong>{{ hero.atk }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'hp' | getStatIconPath }}" alt="" title="Hp"></div>
-            <div>{{ hero.hp }}</div>
+            <div><strong>{{ hero.hp }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'def' | getStatIconPath }}" alt="" title="Defense"></div>
-            <div>{{ hero.def }}</div>
+            <div><strong>{{ hero.def }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'aps' | getStatIconPath }}" alt="" title="Attack speed"></div>
-            <div>{{ hero.aps }}</div>
+            <div><strong>{{ hero.aps }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'atkrange' | getStatIconPath }}" alt="" title="Attack range"></div>
-            <div>{{ hero.atkrange }}</div>
+            <div><strong>{{ hero.atkrange }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'mvspeed' | getStatIconPath }}" alt="" title="Movespeed"></div>
-            <div>{{ hero.atkrange }}</div>
+            <div><strong>{{ hero.movespeed }}</strong></div>
+          </div>
+          <div>
+            <div><img src="{{ 'resist' | getStatIconPath }}" alt="" title="Movespeed"></div>
+            <div><strong>{{ hero.effectresistance }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'ctkrate' | getStatIconPath }}" alt="" title="Critrate"></div>
-            <div>{{ hero.critrate }}</div>
+            <div><strong>{{ hero.critrate }}</strong></div>
           </div>
           <div>
             <div><img src="{{ 'ctkdmg' | getStatIconPath }}" alt="" title="Critdamage"></div>
-            <div>{{ hero.critdmg }}</div>
+            <div><strong>{{ hero.critdmg }}</strong></div>
           </div>
         </div>
       </div>
@@ -60,23 +64,31 @@
     <h2 class="col text-center">Comments</h2>
 
   </div>
-  <div class="row m-5">
+  <div class="row justify-content-center m-5">
+    <!--<div *ngIf="comments" class="col-6 text-center">
+      <div *ngIf="comments.length == 0">
+        <h4>No comments yet</h4>
+      </div>
+
+    </div>-->
     <div class="col-12 cb-hero-details-comments" *ngFor="let comment of comments" [comment]="comment">
 
     </div>
   </div>
   <div class="row justify-content-center mb-5">
-    <div class="col-12 col-lg-6">
-
-      <form>
-        <div class="mb-3">
+    <div class="col-10 col-md-8 col-lg-6">
+      <div *ngIf="isLoggedIn">
+        <div  class="mb-3">
           <label for="textfieldcomment" class="form-label">Write a comment:</label>
-          <textarea class="form-control" id="textfieldcomment" rows="3"></textarea>
+          <textarea #commenttext class="form-control" id="textfieldcomment" rows="5"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Add comment</button>
-      </form>
+        <button class="btn btn-primary" (click)="addcomment()">Add comment</button>
+      </div>
+      <div *ngIf="!isLoggedIn" class="mt-3 mb-3 text-center">
+        <h4>Please login to write comment</h4>
+
+      </div>
+
     </div>
-
-
   </div>
 </div>

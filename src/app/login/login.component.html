@@ -1,39 +1,63 @@
-<div class="row justify-content-center mt-5 login" *ngIf="!isLoggedIn()">
-  <h2 class="mb-3 text-center">Login</h2>
+<div class="container">
+  <div class="row justify-content-center mt-5 login" *ngIf="!isLoggedIn()">
+    <h2 class="mb-3 text-center">Login</h2>
 
-  <form class="row justify-content-center" [formGroup]="loginForm" (ngSubmit)="login()">
-    <div class="col col-sm-6 col-lg-3 mb-3">
-      <input type="email" id="username" class="form-control" formControlName="username" placeholder="Username">
-    </div>
-    <div class="w-100"></div>
-    <div class="col col-sm-6 col-lg-3 mb-3">
-      <input type="password" class="form-control" formControlName="password" placeholder="Password">
-    </div>
-    <div class="w-100"></div>
-    <div class="col-6 d-flex justify-content-center">
-      <button type="submit" class="btn btn-primary text-center">Login</button>
-    </div>
-  </form>
+    <form class="row justify-content-center" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="col col-sm-6 col-lg-3 mb-3">
+        <input type="email" id="username" class="form-control" formControlName="username" placeholder="Username">
+      </div>
+      <div class="w-100"></div>
+      <div class="col col-sm-6 col-lg-3 mb-3">
+        <input type="password" class="form-control" formControlName="password" placeholder="Password">
+      </div>
+      <div class="w-100"></div>
+      <div class="col-6 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary text-center">Login</button>
+      </div>
+    </form>
 
-  <div class="col-5 d-flex justify-content-center needregister">
-    <a class="col mt-3 text-center" routerLink="../register">Register new Account</a>
-    <a class="col mt-3 text-center">Forgot password?</a>
-  </div>
-
-</div>
-
-<div class="ui grid centered mt-8" *ngIf="isLoggedIn()">
-
-  <h1>Logout</h1>
-  <div class="row mt-2">
-    <div class="right aligned column">
-      <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+    <div class="col-5 d-flex justify-content-center needregister">
+      <a class="col mt-3 text-center" routerLink="../register">Register new Account</a>
+      <a class="col mt-3 text-center forgotpassword" data-bs-toggle="modal"
+         data-bs-target="#forgotPassword">Forgot password?</a>
     </div>
 
   </div>
-  <div class="row">
-    <div class="">
-      <button [routerLink]="'/vaccinlocations'"  class="btn btn-primary">Zu den Impfstellen</button>
+
+  <div class="row justify-content-center mt-5" *ngIf="isLoggedIn()">
+    <div class="col text-center">
+      <h1>See you next time</h1>
+      <img src="../../assets/hero-img/hb.png" alt="Healer Bot" class="healerbot">
+      <div class="row mt-2">
+        <div class="right aligned column">
+          <button type="button" class="btn btn-primary mt-3" (click)="logout()">Logout</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <button #open type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  </button>
+
+  <div class="modal fade" id="forgotPassword" tabindex="-1" aria-labelledby="Forgot Password" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-8 py-3">
+                <label for="userlogin" class="form-label">Enter your Username</label>
+                <input #username id="userlogin" name="username" type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer px-3 py-2">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="sendResetLink()">Send link</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

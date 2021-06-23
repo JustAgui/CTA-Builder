@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Hero} from '../shared/hero';
 import {CtabuilderService} from '../shared/ctabuilder.service';
 import {ActivatedRoute} from '@angular/router';
@@ -12,7 +12,7 @@ import secondaryRuneStats from '../../assets/json/secondaryrunestats.json';
   templateUrl: './hero-builder.component.html',
   styleUrls: ['./hero-builder.component.scss']
 })
-export class HeroBuilderComponent implements OnInit {
+export class HeroBuilderComponent implements OnInit, AfterViewInit {
 
   @ViewChild('allrunes') divRunes: ElementRef;
   public hero: Hero;
@@ -24,17 +24,32 @@ export class HeroBuilderComponent implements OnInit {
   public loggedIn = false;
   private userId: number;
   private posts = 10;
+  private page = 1;
+  private totalPages = 0;
   public reachedMaxRunes = false;
 
-  constructor(private cs: CtabuilderService, private auth: AuthenticationService, private route: ActivatedRoute) { }
+  constructor(
+    private cs: CtabuilderService,
+    private auth: AuthenticationService,
+    private route: ActivatedRoute,
+    private renderer2: Renderer2
+  ) { }
 
   ngOnInit(): void {
+    console.group('hero-builder');
+    console.time('viewinit');
     if (this.auth.isLoggedIn()) {
+      this.renderer2.listen('document', 'hide.bs.modal', () => {
+        this.page = 1;
+      });
       this.loggedIn = true;
-      this.cs.getAllHeroes(50).subscribe(res => {
+      console.time('fetching');
+      this.cs.getReallyAllHeroes(50).subscribe(res => {
         this.heroes = res.body;
         this.hero = this.heroes[0].acf;
         this.makeIconPath();
+        console.timeEnd('fetching');
+        console.groupEnd();
       });
     }
   }
@@ -53,7 +68,6 @@ export class HeroBuilderComponent implements OnInit {
     let selectedHeroId = event.target.options[event.target.options.selectedIndex].value;
     for (let hero of this.heroes) {
       if (hero.id === +selectedHeroId) {
-        console.log(hero.id);
         this.hero = hero.acf;
         this.makeIconPath();
       }
@@ -61,9 +75,13 @@ export class HeroBuilderComponent implements OnInit {
   }
 
   paginate(totalPages): void {
-    if (totalPages > 1) {
-      this.needPaginate = true;
-      this.posts += 10;
+    if (this.page < this.totalPages) {
+      if (totalPages > 1) {
+        this.needPaginate = true;
+        this.page++;
+      } else {
+        this.needPaginate = false;
+      }
     } else {
       this.needPaginate = false;
     }
@@ -73,28 +91,31 @@ export class HeroBuilderComponent implements OnInit {
     if (this.auth.isLoggedIn()) {
       this.loggedIn = true;
       this.userId = this.auth.getUserId();
-
-      this.getAllRunes();
+      this.runes = [];
+      this.loadRunes();
     }
   }
 
-  getAllRunes(): void {
-    this.cs.getRunesByUser(this.userId, this.posts).subscribe(res =>  {
-      this.runes = res.body;
+  loadRunes(): void {
+    this.cs.getRunesByUser(this.userId, this.page).subscribe(res =>  {
+      for (let rune of res.body) {
+        this.runes.push(rune);
+      }
+
+      this.totalPages = +res.headers.get('X-WP-TotalPages');
+      this.paginate(this.totalPages);
     });
   }
 
   selectRune(event): void {
     let tdclick = event.currentTarget.children[0].children[0];
     if (tdclick) {
-      // console.log(event.currentTarget.children[0].children[0]);
       tdclick.checked ? tdclick.checked = false : tdclick.checked = true;
     }
   }
 
   saveRunes(): void {
     this.selectedRunes = [];
-    console.log(this.divRunes);
     for (let rune of this.divRunes.nativeElement.children) {
       if (rune.children[0].children[0].checked) {
         let id = +rune.children[1].innerText;
@@ -107,7 +128,7 @@ export class HeroBuilderComponent implements OnInit {
     }
     if (this.selectedRunes.length === 0) {
       for (let hero of this.heroes) {
-        if(hero.acf.name === this.hero.name) {
+        if (hero.acf.name === this.hero.name) {
           this.cs.getOneHero(hero.id).subscribe(res => this.hero = res.acf);
         }
       }
@@ -201,5 +222,13 @@ export class HeroBuilderComponent implements OnInit {
         this.hero.atkrange = +(this.hero.atkrange * (key[1] + 100) / 100).toFixed(0);
       }
     }
+  }
+
+  loadmore(): void {
+    this.loadRunes();
+  }
+
+  ngAfterViewInit() {
+    console.timeEnd('viewinit');
   }
 }

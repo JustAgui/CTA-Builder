@@ -11,7 +11,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class UserRegistrationComponent implements OnInit {
   @ViewChild('open') buttonOpenModal: ElementRef;
-  @ViewChild('modal') modal: ElementRef;
   private user: object;
   registerForm: FormGroup;
   constructor(
@@ -37,7 +36,7 @@ export class UserRegistrationComponent implements OnInit {
         username : `${val.username}`,
         email : `${val.email}`,
         password : `${val.password}`,
-        role : 'author'
+        role : 'editor'
       };
       this.cb.registerUser(this.user).subscribe(res => {
 
